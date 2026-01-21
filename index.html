@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Messias Games</title>
+<link rel="shortcut icon" href="Imagens/logo.png" />
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ================= RESET ================= */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+/* ================= VARIÁVEIS ================= */
+:root{
+  --gray-1:#3b3b3b;
+  --gray-2:#2b2b2b;
+  --gray-3:#1f1f1f;
+  --gray-4:#121212;
+  --card:#3f3f3f;
+  --blue:#1EC8FF;
+  --blue-dark:#1A86FF;
+  --white:#fff;
+}
+
+/* ================= TEXTO GRADIENT (AZUL DA LOGO) ================= */
+.text-gradient{
+  background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ================= BODY (DEGRADÊ CINZA) ================= */
+body{
+  background: linear-gradient(180deg,#3b3b3b 0%,#1d1d1d 25%,#2b2b2b 55%,#1f1f1f 80%,#121212 100%);
+  color: var(--white);
+  text-align:center;
+}
+
+/* ================= NAVBAR ================= */
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:15px 10%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background: linear-gradient(180deg,#1f1f1f,#181818);
+  z-index:1000;
+}
+.navbar img{ width:38px; }
+
+.nav-links a{
+  margin:0 14px;
+  text-decoration:none;
+  color:#bbb;
+  font-weight:500;
+  transition:.3s;
+}
+.nav-links a:hover{ color: var(--blue); }
+
+/* ================= LANG ================= */
+.lang-switch button{
+  background:transparent;
+  border:1px solid var(--blue);
+  color:var(--blue);
+  padding:5px 12px;
+  border-radius:6px;
+  cursor:pointer;
+  margin-left:8px;
+}
+
+/* ================= HERO ================= */
+.hero{
+  min-height:100vh;
+  padding-top:120px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
+.hero h1{ font-size:3rem; }
+.hero p{
+  max-width:620px;
+  margin:20px auto 35px;
+  color:#ccc;
+}
+
+/* LOGO + LUZ (alinhada certinho atrás) */
+.hero-logo{
+  position:relative;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin-bottom:30px;
+}
+.hero-logo img{
+  width:400px;
+  position:relative;
+  z-index:2;
+  filter: drop-shadow(0 0 35px rgba(30,200,255,.35));
+}
+.hero-logo::before{
+  content:"";
+  position:absolute;
+  width:100px;
+  height:100px;
+  border-radius:10%;
+  background: radial-gradient(circle,
+    rgba(30,200,255,0.55) 0%,
+    rgba(30,200,255,0.35) 10%,
+    rgba(30,200,255,0.18) 15%,
+    rgba(30,200,255,0.08) 20%,
+    transparent 50%
+  );
+  filter: blur(50px);
+  z-index:1;
+  pointer-events:none;
+}
+
+/* ================= BUTTONS ================= */
+.buttons{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+/* BOTÃO PRINCIPAL */
+.btn-main{
+  background: linear-gradient(135deg,var(--blue),var(--blue-dark));
+  padding:12px 26px;
+  border-radius:10px;
+  color:#fff;
+  text-decoration:none;
+  font-weight:700;
+  transition:.3s ease;
+  display:inline-block;
+}
+.btn-main:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(30,200,255,.35);
+  filter: brightness(1.05);
+}
+
+/* BOTÃO OUTLINE */
+.btn-outline{
+  border:2px solid var(--blue);
+  padding:12px 26px;
+  border-radius:10px;
+  color:var(--blue);
+  text-decoration:none;
+  font-weight:700;
+  transition:.3s ease;
+  display:inline-block;
+}
+.btn-outline:hover{
+  background: rgba(30,200,255,.12);
+  color: var(--white);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px rgba(0,0,0,.35);
+}
+
+/* ================= SECTIONS ================= */
+section{ padding:90px 10%; }
+
+/* ================= GRID / CARD (GENÉRICO) ================= */
+.grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap:30px;
+}
+.card{
+  background: linear-gradient(180deg,var(--card),var(--gray-3));
+  padding:18px;
+  border-radius:12px;
+  transition:.35s ease;
+  border:1px solid rgba(255,255,255,.08);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.card:hover{ transform: translateY(-4px); }
+
+/* ================= NOVIDADES (IMAGEM) ================= */
+.card-media{
+  width:100%;
+  height:auto;
+  max-height:360px;
+  object-fit:contain;
+  border-radius:14px;
+  margin-bottom:18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.45), 0 4px 10px rgba(0,0,0,.25);
+}
+
+/* imagem clicável para Instagram */
+.news-link{
+  display:block;
+  border-radius:14px;
+  overflow:hidden;
+}
+.news-link img{ transition:.35s ease; }
+.news-link:hover img{
+  transform: scale(1.04);
+  filter: brightness(1.05);
+}
+.news-link:hover{ cursor:pointer; }
+
+/* ================= LOGO DO JOGO ================= */
+.game-logo{
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  display: block;
+  margin: 0;
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,.35));
+}
+.game-logo-wrap{
+  height: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+/* ================= TEAM ================= */
+.team-photo{
+  width:96px;
+  height:96px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid var(--blue);
+  margin-bottom:12px;
+}
+.role{
+  font-size:.9rem;
+  color:#aaa;
+  max-width:220px;
+}
+
+/* Instagram dos devs */
+.dev-social{ margin-top:10px; }
+.dev-social a{
+  width:36px;
+  height:36px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto;
+  border-radius:50%;
+  background: rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  transition:.3s ease;
+}
+.dev-social a:hover{
+  transform: translateY(-3px);
+  background: rgba(30,200,255,.15);
+  border-color: rgba(30,200,255,.6);
+  box-shadow: 0 8px 18px rgba(0,0,0,.35);
+}
+.dev-social img{
+  width:18px;
+  height:18px;
+  display:block;
+}
+
+/* ===================== JOGOS: GRID CENTRAL + CARDS QUADRADOS ===================== */
+.games-grid{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:24px;
+}
+
+/* Cards de jogos */
+.card.game-card{
+  width: 300px;
+  height: 320px;
+  padding: 18px;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content: space-between;
+  text-align:center;
+}
+
+.card.game-card h3{
+  font-size:1.05rem;
+  margin:6px 0 6px;
+}
+.card.game-card p{
+  font-size:.92rem;
+  color:#ccc;
+  margin:0;
+  line-height:1.35;
+  max-width: 240px;
+}
+
+.game-top{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+/* ===================== BOTÕES STORE ===================== */
+.store-wrap{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  padding-bottom: 4px;
+}
+
+.store-btn{
+  width: 210px;
+  height: 46px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+
+  background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+  border-radius:12px;
+
+  color:#fff;
+  font-weight:700;
+  font-size:.95rem;
+  text-decoration:none;
+
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow: 0 10px 22px rgba(0,0,0,.35);
+  transition:.25s ease;
+
+  white-space:nowrap;
+}
+.store-btn:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(30,200,255,.45);
+  filter: brightness(1.05);
+}
+.store-btn img{
+  width:22px;
+  height:22px;
+  object-fit:contain;
+  flex-shrink:0;
+}
+
+/* Desativado (Em breve) */
+.store-btn.disabled{
+  background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
+  color: rgba(255,255,255,.80);
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow:none;
+  cursor:not-allowed;
+  pointer-events:none;
+  opacity:.85;
+}
+.store-btn.disabled .soon{
+  margin-left:6px;
+  font-size:.78rem;
+  font-weight:800;
+  padding:3px 8px;
+  border-radius:999px;
+  background: rgba(30,200,255,.18);
+  border: 1px solid rgba(30,200,255,.35);
+}
+
+/* ===================== EQUIPE: GRID CENTRAL + CARDS QUADRADOS ===================== */
+.team-grid{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:24px;
+}
+.card.dev-card{
+  width:280px;
+  height:280px;
+  padding:18px;
+}
+
+/* ================= CONTATO (CARD + COPIAR EMAIL) ================= */
+.contact-grid{
+  display:flex;
+  justify-content:center;
+}
+
+.contact-card{
+  width:360px;
+  padding:26px 22px;
+  background: linear-gradient(180deg,var(--card),var(--gray-3));
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.08);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  box-shadow: 0 12px 30px rgba(0,0,0,.35);
+}
+
+.contact-card img{
+  width:56px;
+  height:56px;
+  margin-bottom:14px;
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,.35));
+}
+
+.contact-card h3{ margin-bottom:8px; }
+
+.contact-card p{
+  font-size:.95rem;
+  color:#ccc;
+  margin-bottom:12px;
+  line-height:1.45;
+}
+
+.contact-email{
+  font-weight:800;
+  color: var(--blue);
+  text-decoration:none;
+  margin-bottom: 14px;
+}
+.contact-email:hover{ text-decoration:underline; }
+
+.copy-btn{
+  width: 210px;
+  height: 46px;
+  border-radius:12px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+  color:#fff;
+  font-weight:800;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  transition:.25s ease;
+  box-shadow: 0 10px 22px rgba(0,0,0,.35);
+}
+.copy-btn:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(30,200,255,.45);
+  filter: brightness(1.05);
+}
+.copy-btn:active{ transform: translateY(-1px); }
+
+.copy-btn img{
+  width:18px;
+  height:18px;
+  object-fit:contain;
+  display:block;
+}
+
+/* ================= FOOTER PRO ================= */
+.site-footer{
+  background: linear-gradient(180deg, #161616, #0f0f0f);
+  padding:55px 10% 25px;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+
+.footer-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:60px;
+}
+
+.footer-brand{ text-align:left; }
+.footer-brand img{ width:32px; margin-bottom:10px; }
+.footer-brand p{
+  text-align:left;
+  color:#bdbdbd;
+  line-height:1.6;
+  max-width:520px;
+}
+
+.footer-socials{
+  display:flex;
+  gap:12px;
+  margin-top:18px;
+}
+.footer-socials a{
+  width:42px;
+  height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:12px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.08);
+  transition:.3s;
+}
+.footer-socials a:hover{
+  transform: translateY(-3px);
+  border-color: rgba(30,200,255,.55);
+  box-shadow: 0 10px 22px rgba(0,0,0,.35);
+}
+.footer-socials img{
+  width:18px;
+  height:18px;
+  display:block;
+}
+
+.footer-cols{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:60px;
+  min-width:360px;
+  text-align:left;
+}
+.footer-col h4{
+  font-size:1.05rem;
+  color:var(--white);
+  margin-bottom:12px;
+}
+.footer-links{
+  list-style:none;
+  padding:0;
+  margin:0;
+  display:grid;
+  gap:10px;
+}
+.footer-links a{
+  color:#bdbdbd;
+  text-decoration:none;
+  transition:.25s;
+}
+.footer-links a:hover{ color: var(--blue); }
+
+.footer-divider{
+  margin:28px 0 18px;
+  height:1px;
+  background: rgba(255,255,255,.08);
+}
+.footer-bottom{
+  color:#9c9c9c;
+  font-size:14px;
+}
+
+/* ================= RESPONSIVO ================= */
+@media (max-width: 900px){
+  .footer-top{ flex-direction:column; gap:28px; }
+  .footer-cols{ grid-template-columns:1fr; gap:22px; min-width:auto; }
+}
+
+@media (max-width: 600px){
+  .card.game-card{
+    width:92vw;
+    max-width:360px;
+    height: 340px;
+  }
+  .store-btn{ width: 220px; }
+  .contact-card{ width: 92vw; max-width: 420px; }
+}
+
+/* ================= ANIMATION ================= */
+.fade{
+  opacity:0;
+  transform: translateY(30px);
+  transition:.8s;
+}
+.fade.show{
+  opacity:1;
+  transform: translateY(0);
+}
+
+/* ================= SECRET MODAL (KAIK) ================= */
+.secret-modal{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.72);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+  z-index: 999999;
+}
+
+.secret-modal.show{
+  display: flex;
+}
+
+.secret-modal .box{
+  width: min(900px, 96vw);
+  background: linear-gradient(180deg, rgba(63,63,63,.95), rgba(31,31,31,.95));
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 16px;
+  box-shadow: 0 18px 55px rgba(0,0,0,.55);
+  overflow: hidden;
+}
+
+.secret-modal .top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.secret-modal .title{
+  font-weight: 800;
+  color: #fff;
+  text-align: left;
+}
+
+.secret-modal .close{
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  color: #fff;
+  cursor: pointer;
+  font-size: 18px;
+  display: grid;
+  place-items: center;
+  transition: .2s;
+}
+
+.secret-modal .close:hover{
+  transform: translateY(-2px);
+  border-color: rgba(30,200,255,.55);
+  box-shadow: 0 10px 22px rgba(0,0,0,.35);
+}
+
+.secret-modal .content{
+  padding: 14px;
+}
+
+.secret-modal .video-wrap{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #000;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.10);
+}
+
+.secret-modal video,
+.secret-modal iframe{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+</style>
+</head>
+
+<!-- SECRET MODAL (KAIK) - YouTube -->
+<div class="secret-modal" id="secretModal" aria-hidden="true">
+  <div class="box" role="dialog" aria-modal="true" aria-label="Vídeo secreto">
+    <div class="top">
+      <div class="title">ó u kaik ai o</div>
+      <button class="close" id="secretClose" aria-label="Fechar">✕</button>
+    </div>
+
+    <div class="content">
+      <div class="video-wrap">
+        <iframe id="secretIframe"
+          src=""
+          title="YouTube video"
+          frameborder="0"
+          allow="autoplay; encrypted-media"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar fade">
+  <img src="Imagens/logo.png" alt="Logo">
+  <div class="nav-links">
+    <a href="#inicio" data-lang="menuHome">Início</a>
+    <a href="#games" data-lang="menuGames">Jogos</a>
+    <a href="#novidades" data-lang="menuNews">Novidades</a>
+    <a href="#contato" data-lang="menuContact">Contato</a>
+  </div>
+  <div class="lang-switch">
+    <button onclick="setLanguage('pt')">PT</button>
+    <button onclick="setLanguage('en')">EN</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<section id="inicio" class="hero fade">
+  <div class="hero-logo">
+    <img src="Imagens/logo.png" alt="Messias Games">
+  </div>
+
+  <!-- FIX: idioma sem quebrar o span azul -->
+  <h1>
+    <span data-lang="heroTitleA">Criamos jogos que</span>
+    <span class="text-gradient" data-lang="heroTitleB">inspiram</span>
+  </h1>
+
+  <p data-lang="heroText">Experiências únicas para jogadores do mundo todo.</p>
+
+  <div class="buttons">
+    <a href="#games" class="btn-main" data-lang="btnGames">Nossos Jogos</a>
+    <a href="#sobre" class="btn-outline" data-lang="btnAbout">Sobre Nós</a>
+  </div>
+</section>
+
+<!-- GAMES -->
+<section id="games" class="fade">
+  <!-- FIX: "Jogos" azul (sem quebrar idioma) -->
+  <h2>
+    <span data-lang="gamesTitleA">Nossos</span>
+    <span class="text-gradient" data-lang="gamesTitleB">Jogos</span>
+  </h2>
+
+  <div class="games-grid">
+
+    <div class="card game-card">
+      <div class="game-top">
+        <div class="game-logo-wrap">
+          <img src="Imagens/pocketbikes.png" class="game-logo" alt="Pocket Bikes">
+        </div>
+        <h3>Pocket Bikes Online</h3>
+        <p>Jogo desenvolvido pela Messias Games.</p>
+      </div>
+
+      <div class="store-wrap">
+        <a href="https://play.google.com/store/apps/details?id=com.sla.rdbo&pcampaignid=web_share"
+           class="store-btn" target="_blank">
+          <img src="Imagens/play.png" alt="Play Store">
+          <span>Play Store</span>
+        </a>
+
+        <a class="store-btn disabled" href="#" aria-disabled="true">
+          <img src="Imagens/applestore.png" alt="Apple Store">
+          <span></span>
+          <span class="soon" data-lang="soon">Em breve</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="card game-card">
+      <div class="game-top">
+        <div class="game-logo-wrap">
+          <img src="Imagens/brasil cargo.png" class="game-logo" alt="Brasil Cargo">
+        </div>
+        <h3>Brasil Cargo Simulator</h3>
+        <p>Jogo desenvolvido pela Messias Games.</p>
+      </div>
+
+      <div class="store-wrap">
+        <!-- Brasil Cargo: Play Store em breve (igual Apple) -->
+        <a class="store-btn disabled" href="#" aria-disabled="true">
+          <img src="Imagens/play.png" alt="Play Store">
+          <span></span>
+          <span class="soon" data-lang="soon">Em breve</span>
+        </a>
+
+        <a class="store-btn disabled" href="#" aria-disabled="true">
+          <img src="Imagens/applestore.png" alt="Apple Store">
+          <span></span>
+          <span class="soon" data-lang="soon">Em breve</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- NOVIDADES -->
+<section id="novidades" class="fade">
+  <h2 data-lang="newsTitle">Novidades</h2>
+
+  <div class="grid">
+    <div class="card">
+      <a class="news-link" href="https://www.instagram.com/p/DTlzWqrkQF7/?img_index=3" target="_blank" aria-label="Ver post no Instagram">
+        <img src="Noticias/prfrefeita.png" alt="Reimaginação da PRF" class="card-media">
+      </a>
+      <h3>🆕 A PRF está de cara nova! Modelo totalmente atualizado</h3>
+      <p>Modelo atualizado da PRF. Dirija com cuidado!</p>
+    </div>
+
+    <div class="card">
+      <a class="news-link" href="https://www.instagram.com/p/DTlzWqrkQF7/?img_index=2" target="_blank" aria-label="Ver post no Instagram">
+        <img src="Noticias/central de trabalho.png" alt="Central de Trabalhos" class="card-media">
+      </a>
+      <h3>🆕 Central de Trabalhos!</h3>
+      <p>Coloque trabalhadores para trabalhar e receba sua grana!</p>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre" class="fade">
+  <!-- FIX: "Nós" azul -->
+  <h2>
+    <span data-lang="aboutTitleA">Sobre</span>
+    <span class="text-gradient" data-lang="aboutTitleB">Nós</span>
+  </h2>
+
+  <p data-lang="aboutText">
+    A Messias Games é um estúdio independente de games mobile fundado por dois primos movidos pela mesma paixão: criar jogos incríveis que ultrapassem o comum e cheguem perto da verdadeira imersão.
+
+Unimos criatividade, dedicação e inovação para desenvolver experiências únicas, focadas em jogabilidade envolvente, identidade marcante e diversão de verdade. Cada projeto nasce do sonho de transformar ideias em mundos jogáveis que conectem jogadores e histórias.
+
+Estamos apenas no começo, mas com um objetivo claro: evoluir constantemente e levar aos jogadores games mobile que deixem marca.
+  </p>
+</section>
+
+<!-- EQUIPE -->
+<section id="equipe" class="fade">
+  <h2 data-lang="teamTitle">Equipe de Desenvolvimento</h2>
+
+  <div class="team-grid">
+    <div class="card dev-card">
+      <img src="Imagens/primolindo.jpeg" class="team-photo" alt="Cristhian">
+      <h3>Cristhian Messias</h3>
+      <div class="role">Fundador & Game Developer</div>
+
+      <div class="dev-social">
+        <a href="https://instagram.com/cristh_messias" target="_blank" aria-label="Instagram Cristhian">
+          <img src="Imagens/instagrampreto.png" alt="Instagram">
+        </a>
+      </div>
+    </div>
+
+    <div class="card dev-card">
+      <img src="Imagens/Antonio.jpg" class="team-photo" alt="Antonio">
+      <h3>Antonio Messias</h3>
+      <div class="role">3D Artist & UI UX Designer</div>
+
+      <div class="dev-social">
+        <a href="https://instagram.com/t0nhos" target="_blank" aria-label="Instagram Antonio">
+          <img src="Imagens/instagrampreto.png" alt="Instagram">
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO (NOVO) -->
+<section id="contato" class="fade">
+  <h2>
+    <span data-lang="contactTitleA">Entre em</span>
+    <span class="text-gradient" data-lang="contactTitleB">Contato</span>
+  </h2>
+
+  <div class="contact-grid">
+    <div class="contact-card">
+      <!-- Você precisa ter Imagens/email.png (ou troque pelo seu ícone) -->
+      <img src="Imagens/mail.png" alt="Email">
+
+      <h3 data-lang="contactCardTitle">Fale Conosco</h3>
+      <p data-lang="contactCardText">
+        Para dúvidas, parcerias ou suporte, entre em contato pelo email abaixo:
+      </p>
+
+      <a href="mailto:messiasgames" class="contact-email" id="companyEmail">
+        support@messiasgames.com
+      </a>
+
+      <button class="copy-btn" id="copyEmailBtn" onclick="copyCompanyEmail()">
+        <!-- opcional: um ícone pequeno de copiar (se não tiver, pode remover essa img) -->
+        <img src="Imagens/copy.png" alt="">
+        <span data-lang="copyBtn">Copiar Email</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER (sem id contato, agora contato é a seção) -->
+<footer class="site-footer" id="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="Imagens/logo.png" alt="Messias Games">
+      <p>
+        Criamos jogos mobile inovadores que inspiram e divertem.
+        Nossa missão é conectar pessoas através de experiências
+        de jogo únicas e memoráveis.
+      </p>
+
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/messiasgamesinc/" target="_blank" aria-label="Instagram">
+          <img src="Imagens/instagrampreto.png" alt="Instagram">
+        </a>
+        <a href="https://youtube.com/@animalz7" target="_blank" aria-label="YouTube">
+          <img src="Imagens/youtubepreto.png" alt="YouTube">
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>Sobre</h4>
+        <ul class="footer-links">
+          <li><a href="#sobre">Sobre nós</a></li>
+          <li><a href="#contato">Contato</a></li>
+          <li><a href="#games">Jogos</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Privacidade</h4>
+        <ul class="footer-links">
+          <li><a href="politica.html">Política de Privacidade</a></li>
+          <li><a href="termos.html">Termos e Condições</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-divider"></div>
+
+  <div class="footer-bottom">
+    © 2026 Messias Games — Todos os direitos reservados
+  </div>
+</footer>
+
+<script>
+/* ANIMAÇÃO */
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(x=> x.isIntersecting && x.target.classList.add("show"));
+});
+document.querySelectorAll(".fade").forEach(el=>obs.observe(el));
+
+/* IDIOMAS (com Contato + "Em breve") */
+const t={
+  pt:{
+    menuHome:"Início",
+    menuGames:"Jogos",
+    menuNews:"Novidades",
+    menuContact:"Contato",
+
+    heroTitleA:"Criamos jogos que",
+    heroTitleB:"inspiram",
+    heroText:"Experiências únicas para jogadores do mundo todo.",
+
+    btnGames:"Nossos Jogos",
+    btnAbout:"Sobre Nós",
+
+    gamesTitleA:"Nossos",
+    gamesTitleB:"Jogos",
+
+    newsTitle:"Novidades",
+
+    aboutTitleA:"Sobre",
+    aboutTitleB:"Nós",
+    aboutText:"A Messias Games é um estúdio independente focado em criar jogos mobile com qualidade.",
+
+    teamTitle:"Equipe de Desenvolvimento",
+
+    contactTitleA:"Entre em",
+    contactTitleB:"Contato",
+    contactCardTitle:"Fale Conosco",
+    contactCardText:"Para dúvidas, parcerias ou suporte, entre em contato pelo email abaixo:",
+    copyBtn:"Copiar Email",
+    copiedBtn:"Copiado!",
+
+    soon:"Em breve"
+  },
+  en:{
+    menuHome:"Home",
+    menuGames:"Games",
+    menuNews:"News",
+    menuContact:"Contact",
+
+    heroTitleA:"We create games that",
+    heroTitleB:"inspire",
+    heroText:"Unique experiences for players worldwide.",
+
+    btnGames:"Our Games",
+    btnAbout:"About Us",
+
+    gamesTitleA:"Our",
+    gamesTitleB:"Games",
+
+    newsTitle:"Latest News",
+
+    aboutTitleA:"About",
+    aboutTitleB:"Us",
+    aboutText:"Messias Games is an indie studio focused on high-quality mobile games.",
+
+    teamTitle:"Development Team",
+
+    contactTitleA:"Get in",
+    contactTitleB:"Touch",
+    contactCardTitle:"Contact Us",
+    contactCardText:"For questions, partnerships, or support, reach us at the email below:",
+    copyBtn:"Copy Email",
+    copiedBtn:"Copied!",
+
+    soon:"Soon"
+  }
+};
+
+let currentLang = "pt";
+
+function setLanguage(l){
+  currentLang = l;
+  document.querySelectorAll("[data-lang]").forEach(e=>{
+    const key = e.dataset.lang;
+    if(t[l] && t[l][key] !== undefined){
+      e.innerText = t[l][key];
+    }
+  });
+}
+
+/* COPIAR EMAIL (com fallback) */
+async function copyCompanyEmail(){
+  const emailEl = document.getElementById("companyEmail");
+  const btn = document.getElementById("copyEmailBtn");
+  const labelSpan = btn.querySelector('[data-lang="copyBtn"]');
+  const email = (emailEl && emailEl.textContent || "").trim();
+  if(!email) return;
+
+  const setCopiedText = () => {
+    if(labelSpan){
+      labelSpan.innerText = t[currentLang].copiedBtn;
+      setTimeout(()=>{ labelSpan.innerText = t[currentLang].copyBtn; }, 1200);
+    }
+  };
+
+  try{
+    if(navigator.clipboard && window.isSecureContext){
+      await navigator.clipboard.writeText(email);
+      setCopiedText();
+      return;
+    }
+  }catch(e){}
+
+  /* fallback antigo */
+  const ta = document.createElement("textarea");
+  ta.value = email;
+  ta.style.position = "fixed";
+  ta.style.left = "-9999px";
+  ta.style.top = "0";
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  try{
+    document.execCommand("copy");
+    setCopiedText();
+  }catch(e){}
+  document.body.removeChild(ta);
+}
+
+
+/* ================= SECRET CODE: KAIK ================= */
+(function(){
+  const SECRET = "KAIK";
+  let buffer = "";
+
+  const modal = document.getElementById("secretModal");
+  const closeBtn = document.getElementById("secretClose");
+  const video = document.getElementById("secretVideo");     // se usar mp4
+  const iframe = document.getElementById("secretIframe");   // se usar YouTube
+
+  function openModal(){
+    modal.classList.add("show");
+    modal.setAttribute("aria-hidden", "false");
+
+    // Se for YouTube, setar o src só quando abrir (autoplay)
+    if(iframe){
+      // Troque VIDEO_ID abaixo:
+      const YT_ID = "xm1j8tZAbns";
+      iframe.src = `https://www.youtube.com/embed/${YT_ID}?autoplay=1&mute=0`;
+    }
+
+    // Se for mp4, garante play
+    if(video){
+      try { video.currentTime = 0; video.play(); } catch(e){}
+    }
+  }
+
+  function closeModal(){
+    modal.classList.remove("show");
+    modal.setAttribute("aria-hidden", "true");
+
+    // parar mp4
+    if(video){
+      try { video.pause(); } catch(e){}
+    }
+    // parar youtube
+    if(iframe){
+      iframe.src = "";
+    }
+  }
+
+  // fecha ao clicar no X
+  closeBtn?.addEventListener("click", closeModal);
+
+  // fecha clicando fora
+  modal?.addEventListener("click", (e) => {
+    if(e.target === modal) closeModal();
+  });
+
+  // fecha com ESC
+  document.addEventListener("keydown", (e) => {
+    if(e.key === "Escape" && modal.classList.contains("show")) closeModal();
+  });
+
+  // captura teclado (ignora quando usuário estiver digitando em inputs)
+  document.addEventListener("keydown", (e) => {
+    const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : "";
+    const isTypingField = tag === "input" || tag === "textarea" || e.target?.isContentEditable;
+    if(isTypingField) return;
+
+    const k = e.key.length === 1 ? e.key.toUpperCase() : "";
+    if(!k) return;
+
+    buffer = (buffer + k).slice(-SECRET.length);
+
+    if(buffer === SECRET){
+      buffer = "";
+      openModal();
+    }
+  });
+})();
+
+
+</script>
+
+</body>
+</html>
